@@ -20,40 +20,40 @@ const Chart = ({ dailyData }) => {
   const [stockData, setStockData] = useState({});
   const [dateKeys, setDateKeys] = useState([]);
   const [prices, setPrices] = useState([]);
+  const [timestamps, setTimestamps] = useState([]);
 
   // Get the objects keys
   useEffect(() => {
-    if (dailyData) {
-      dailyData.forEach((date) => {
-        setDateKeys(Object.keys(date));
-      });
-    }
+    dailyData.forEach((date) => {
+      setDateKeys(Object.keys(date));
+    });
   }, [dailyData]);
 
   // Get the prices with object keys
   useEffect(() => {
     dateKeys.reverse().forEach((key) => {
       const price = dailyData[0][key];
+      const slicedKey = key.slice(11, 16);
+
       setPrices((prevPrices) => [...prevPrices, price]);
+      setTimestamps((prevTime) => [...prevTime, slicedKey]);
     });
   }, [dateKeys]);
 
   useEffect(() => {
-    if (prices) {
-      setStockData({
-        labels: dateKeys.map((key) => key),
-        datasets: [
-          {
-            label: "price",
-            data: prices.map((price) => price["1. open"]),
-            borderColor: "#34A853",
-            fill: false,
-            borderWidth: 2,
-          },
-        ],
-      });
-    }
-  }, [prices]);
+    setStockData({
+      labels: timestamps.map((key) => key),
+      datasets: [
+        {
+          label: "price",
+          data: prices.map((price) => price["1. open"]),
+          borderColor: "#34A853",
+          fill: false,
+          borderWidth: 2,
+        },
+      ],
+    });
+  }, [prices, timestamps]);
 
   return (
     <div>
