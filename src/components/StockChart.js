@@ -14,6 +14,17 @@ const useStyles = makeStyles(() => ({
 
 const Chart = () => {
   const [stockData, setStockData] = useState({});
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
+  };
 
   useEffect(() => {
     setStockData({
@@ -36,13 +47,11 @@ const Chart = () => {
     });
   }, []);
 
-  console.log(stockData);
-
   const classes = useStyles();
   return (
     <div>
       <Grid className={classes.root} item xs={12}>
-        <Line data={stockData} />
+        <Line data={stockData} options={options} />
       </Grid>
     </div>
   );
