@@ -16,7 +16,7 @@ const FindInput = () => {
   const classes = useStyles();
   return (
     <Grid className={classes.root} item xs={4} md={2}>
-      <TextField fullWidth label="Find Stock..." />
+      <TextField fullWidth label="Find a stock..." />
     </Grid>
   );
 };
