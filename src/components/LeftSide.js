@@ -24,7 +24,7 @@ const LeftSide = () => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.root} item xs={4}>
+    <Grid className={classes.root} item xs={12} md={4}>
       <div>
         <Typography className={classes.muted} variant="h6">
           Netflix

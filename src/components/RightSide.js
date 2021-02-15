@@ -25,7 +25,7 @@ const RightSide = () => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.root} item xs={4}>
+    <Grid className={classes.root} item xs={12} md={4}>
       <Typography
         className={`${classes.withoutBreak} ${classes.marginRight} ${classes.muted}`}
         variant="h5"

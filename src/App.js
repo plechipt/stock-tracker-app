@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Navbar from "./components/Navbar";
 import LeftSide from "./components/LeftSide";
 import RightSide from "./components/RightSide";
+import FindInput from "./components/FindInput";
 import StockChart from "./components/StockChart";
 
 const useStyles = makeStyles(() => ({
@@ -23,11 +24,14 @@ function App() {
         <Navbar />
       </header>
       <main>
-        <Grid className={classes.container} container spacing={3}>
+        <Grid className={classes.container} container>
           <LeftSide />
           <RightSide />
         </Grid>
-        <Grid className={classes.container} container spacing={3}>
+        <Grid className={classes.container} container>
+          <FindInput />
+        </Grid>
+        <Grid className={classes.container} container>
           <StockChart />
         </Grid>
       </main>
