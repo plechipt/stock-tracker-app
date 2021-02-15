@@ -1,5 +1,5 @@
 import "./App.css";
-import { fetchData } from "./api";
+import { fetchDailyData } from "./api";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
-  fetchData();
+  fetchDailyData("NFLX");
   const classes = useStyles();
 
   return (
