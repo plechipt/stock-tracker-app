@@ -2,3 +2,9 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@media only screen and (max-width: 770px) {
+  .stockContainer {
+    width: 100%;
+  }
+}

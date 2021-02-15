@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import { options } from "./chartOptions";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,49 +9,38 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    width: "50rem",
+    margin: "auto",
+    marginTop: "5rem",
+    width: "60rem",
   },
 }));
 
 const Chart = () => {
+  const classes = useStyles();
   const [stockData, setStockData] = useState({});
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            display: false,
-          },
-        },
-      ],
-    },
-  };
 
   useEffect(() => {
     setStockData({
-      labels: [1],
+      labels: [1, 2, 3],
       datasets: [
         {
-          label: "confirmed",
-          data: [1],
-          borderColor: "rgba(233, 0, 59, 1)",
-          borderWidth: 3,
-        },
-        {
-          label: "deaths",
-          data: [1],
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          borderColor: "black",
+          label: "price",
+          data: [1, 2, 3],
+          borderColor: "#34A853",
+          fill: false,
           borderWidth: 2,
         },
       ],
     });
   }, []);
 
-  const classes = useStyles();
   return (
     <div>
-      <Grid className={classes.root} item xs={12}>
+      <Grid
+        className={`${classes.root} ${classes.chartContainer}`}
+        item
+        xs={12}
+      >
         <Line data={stockData} options={options} />
       </Grid>
     </div>

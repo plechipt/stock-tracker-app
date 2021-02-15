@@ -38,7 +38,7 @@ const LeftSide = () => {
           </Typography>
           <Typography
             className={`${classes.withoutBreak} ${classes.muted}`}
-            variant="h5"
+            variant="h6"
           >
             USD
           </Typography>
