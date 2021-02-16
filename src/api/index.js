@@ -22,3 +22,13 @@ export const fetchMonthData = async (ticker) => {
   const monthData = data.slice(0, 30);
   return monthData;
 };
+
+export const fetchSixMonthData = async (ticker) => {
+  const API_URL = `http://api.marketstack.com/v1/eod?access_key=${API_KEY}&symbols=${ticker}&limit=180`;
+
+  const {
+    data: { data },
+  } = await axios.request(API_URL);
+
+  return data;
+};
