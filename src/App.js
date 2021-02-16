@@ -30,10 +30,12 @@ function App() {
       const dailyDataResult = await fetchDailyData("VOO");
 
       setCompanyOverview(companyOverviewResult);
-      setDailyData([dailyDataResult]);
+      setDailyData(dailyDataResult);
     };
     fetchData();
   }, []);
+
+  console.log(dailyData);
 
   return (
     <div className="App">
@@ -49,9 +51,7 @@ function App() {
           <FindInput />
         </Grid>
         <Grid className={classes.container} container>
-          {dailyData !== null && dailyData !== undefined ? (
-            <StockChart dailyData={dailyData} />
-          ) : null}
+          {dailyData ? <StockChart dailyData={dailyData} /> : null}
         </Grid>
       </main>
     </div>

@@ -17,10 +17,14 @@ const useStyles = makeStyles(() => ({
 
 const Chart = ({ dailyData }) => {
   const classes = useStyles();
+
+  dailyData = new Array(dailyData);
   const [stockData, setStockData] = useState({});
   const [dateKeys, setDateKeys] = useState([]);
   const [prices, setPrices] = useState([]);
   const [timestamps, setTimestamps] = useState([]);
+
+  console.log(dailyData);
 
   // Get the objects keys
   useEffect(() => {
