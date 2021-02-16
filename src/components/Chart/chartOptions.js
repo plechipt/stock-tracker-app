@@ -2,16 +2,14 @@ export const options = {
   legend: {
     display: false,
   },
-  hover: {
-    intersect: false,
-  },
   elements: {
-    line: {
-      tension: 0,
-    },
     point: {
       radius: 0,
     },
+  },
+  tooltips: {
+    intersect: false,
+    mode: "nearest",
   },
   scales: {
     xAxes: [
@@ -26,7 +24,11 @@ export const options = {
         gridLines: {
           display: false,
         },
+        ticks: {
+          beginAtZero: true,
+        },
       },
     ],
+    responsive: false,
   },
 };
