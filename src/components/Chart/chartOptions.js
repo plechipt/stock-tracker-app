@@ -22,7 +22,8 @@ export const options = {
     yAxes: [
       {
         gridLines: {
-          display: false,
+          lineWidth: 0.5,
+          tickMarkLength: 15,
         },
       },
     ],
