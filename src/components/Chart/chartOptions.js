@@ -9,7 +9,7 @@ export const options = {
   },
   tooltips: {
     intersect: false,
-    mode: "nearest",
+    mode: "index",
   },
   scales: {
     xAxes: [
@@ -24,11 +24,7 @@ export const options = {
         gridLines: {
           display: false,
         },
-        ticks: {
-          beginAtZero: true,
-        },
       },
     ],
-    responsive: false,
   },
 };

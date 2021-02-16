@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       //const dailyDataResult = await fetchDailyData("NFLX");
-      const data = await fetchYearData("GME");
+      const data = await fetchMonthData("GME");
       setDailyData(data);
     };
     fetchData();

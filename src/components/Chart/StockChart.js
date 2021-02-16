@@ -18,26 +18,45 @@ const useStyles = makeStyles(() => ({
 const Chart = ({ dailyData }) => {
   const classes = useStyles();
   const [reversedDailyData, setReversedDailyData] = useState([]);
+  const [dates, setDates] = useState([]);
   const [stockData, setStockData] = useState({});
 
+  // Reverse data
   useEffect(() => {
     setReversedDailyData([...dailyData].reverse());
   }, [dailyData]);
 
+  // Format date
   useEffect(() => {
-    setStockData({
-      labels: reversedDailyData.map(({ date }) => date),
-      datasets: [
-        {
-          label: "price",
-          data: reversedDailyData.map(({ close }) => close),
-          borderColor: "#34A853",
-          fill: false,
-          borderWidth: 2,
-        },
-      ],
-    });
+    if (reversedDailyData) {
+      reversedDailyData.forEach(({ date }) => {
+        const dateClass = new Date(date);
+        const day = dateClass.getDate();
+        const month = dateClass.getMonth() + 1;
+
+        setDates((prevDate) => {
+          return [...prevDate, `${day}.${month}`];
+        });
+      });
+    }
   }, [reversedDailyData]);
+
+  useEffect(() => {
+    if (reversedDailyData && dates) {
+      setStockData({
+        labels: dates.map((date) => date),
+        datasets: [
+          {
+            label: "price",
+            data: reversedDailyData.map(({ close }) => close),
+            borderColor: "#34A853",
+            fill: false,
+            borderWidth: 2,
+          },
+        ],
+      });
+    }
+  }, [reversedDailyData, dates]);
 
   return (
     <div>
