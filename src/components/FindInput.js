@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -12,11 +12,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FindInput = () => {
+const FindInput = ({ setTicker }) => {
   const classes = useStyles();
+
+  const handleTicker = (e) => {
+    if (e.key === "Enter") {
+      setTicker(e.target.value);
+    }
+  };
+
   return (
     <Grid className={classes.root} item xs={4} md={2}>
-      <TextField fullWidth label="Find a stock..." />
+      <TextField
+        onKeyPress={handleTicker}
+        onChange={handleTicker}
+        fullWidth
+        label="Enter a ticker..."
+      />
     </Grid>
   );
 };

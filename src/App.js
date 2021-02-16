@@ -26,16 +26,17 @@ const useStyles = makeStyles(() => ({
 function App() {
   const [companyOverview, setCompanyOverview] = useState(null);
   const [dailyData, setDailyData] = useState(null);
+  const [ticker, setTicker] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
     const fetchData = async () => {
       //const dailyDataResult = await fetchDailyData("NFLX");
-      const data = await fetchMonthData("GME");
+      const data = await fetchMonthData(ticker);
       setDailyData(data);
     };
     fetchData();
-  }, []);
+  }, [ticker]);
 
   return (
     <div className="App">
@@ -48,10 +49,12 @@ function App() {
           <RightSide />
         </Grid>
         <Grid className={classes.container} container>
-          <FindInput />
+          <FindInput setTicker={setTicker} />
         </Grid>
         <Grid className={classes.container} container>
-          {dailyData ? <StockChart dailyData={dailyData} /> : null}
+          {dailyData ? (
+            <StockChart ticker={ticker} dailyData={dailyData} />
+          ) : null}
         </Grid>
       </main>
     </div>

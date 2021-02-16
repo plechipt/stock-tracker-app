@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Line, Chart as CustomChart } from "react-chartjs-2";
 import { options } from "./chartOptions";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Chart = ({ dailyData }) => {
+const Chart = ({ dailyData, ticker }) => {
   const classes = useStyles();
   const [reversedDailyData, setReversedDailyData] = useState([]);
   const [dates, setDates] = useState([]);
