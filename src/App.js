@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchDailyData } from "./api";
+import { fetchDailyData, fetchMonthData } from "./api";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,13 +25,12 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const dailyDataResult = await fetchDailyData("VOO");
-      setDailyData(dailyDataResult);
+      //const dailyDataResult = await fetchDailyData("NFLX");
+      const data = await fetchMonthData("GME");
+      setDailyData(data);
     };
     fetchData();
   }, []);
-
-  console.log(dailyData);
 
   return (
     <div className="App">
