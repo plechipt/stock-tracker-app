@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCompanyOverview, fetchDailyData } from "./api";
+import { fetchDailyData } from "./api";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,11 +25,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // By default choose VOO stock
-      const companyOverviewResult = await fetchCompanyOverview("VOO");
       const dailyDataResult = await fetchDailyData("VOO");
-
-      setCompanyOverview(companyOverviewResult);
       setDailyData(dailyDataResult);
     };
     fetchData();
