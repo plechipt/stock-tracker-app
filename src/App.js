@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  fetchDailyData,
+  fetchRecentData,
   fetchMonthData,
   fetchSixMonthData,
   fetchYearData,
@@ -20,21 +20,19 @@ const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     justifyContent: "center",
-    width: "100wh",
   },
 }));
 
 function App() {
   const classes = useStyles();
   const [ticker, setTicker] = useState("VOO"); // default VOO
-  const [dailyData, setDailyData] = useState(null);
+  const [chartData, setChartData] = useState(null);
   const [companyOverview, setCompanyOverview] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      //const dailyDataResult = await fetchDailyData("NFLX");
-      const data = await fetchMonthData(ticker);
-      setDailyData(data);
+      const data = await fetchRecentData(ticker);
+      setChartData(data);
     };
     fetchData();
   }, [ticker]);
@@ -53,8 +51,8 @@ function App() {
           <FindInput setTicker={setTicker} />
         </Grid>
         <Grid className={classes.container} container>
-          {dailyData ? (
-            <StockChart ticker={ticker} dailyData={dailyData} />
+          {chartData ? (
+            <StockChart ticker={ticker} chartData={chartData} />
           ) : null}
         </Grid>
       </main>

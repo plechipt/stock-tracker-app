@@ -15,27 +15,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Chart = ({ dailyData }) => {
+const Chart = ({ chartData }) => {
   const classes = useStyles();
-  const [reversedDailyData, setReversedDailyData] = useState([]);
+  const [reversedData, setReversedData] = useState([]);
   const [dates, setDates] = useState([]);
   const [stockData, setStockData] = useState({});
 
   // Reset data
   useEffect(() => {
-    setReversedDailyData([]);
+    setReversedData([]);
     setDates([]);
-  }, [dailyData]);
+  }, [chartData]);
 
   // Reverse data
   useEffect(() => {
-    setReversedDailyData([...dailyData].reverse());
-  }, [dailyData]);
+    setReversedData([...chartData].reverse());
+  }, [chartData]);
 
   // Format date
   useEffect(() => {
-    if (reversedDailyData) {
-      reversedDailyData.forEach(({ date }) => {
+    if (reversedData) {
+      reversedData.forEach(({ date }) => {
         const dateClass = new Date(date);
         const day = dateClass.getDate();
         const month = dateClass.getMonth() + 1;
@@ -45,16 +45,16 @@ const Chart = ({ dailyData }) => {
         });
       });
     }
-  }, [reversedDailyData]);
+  }, [reversedData]);
 
   useEffect(() => {
-    if (reversedDailyData && dates) {
+    if (reversedData && dates) {
       setStockData({
         labels: dates.map((date) => date),
         datasets: [
           {
             label: "price",
-            data: reversedDailyData.map(({ close }) => close),
+            data: reversedData.map(({ close }) => close),
             borderColor: "#34A853",
             fill: false,
             borderWidth: 2,
@@ -62,7 +62,7 @@ const Chart = ({ dailyData }) => {
         ],
       });
     }
-  }, [reversedDailyData, dates]);
+  }, [reversedData, dates]);
 
   return (
     <div>
