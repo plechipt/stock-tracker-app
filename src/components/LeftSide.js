@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LeftSide = () => {
+const LeftSide = ({ price }) => {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ const LeftSide = () => {
             className={`${classes.withoutBreak} ${classes.marginRight}`}
             variant="h3"
           >
-            600,00
+            {price}
           </Typography>
           <Typography
             className={`${classes.withoutBreak} ${classes.muted}`}

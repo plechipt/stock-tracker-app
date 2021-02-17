@@ -25,17 +25,23 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
+  const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
   const [chartData, setChartData] = useState(null);
   const [companyOverview, setCompanyOverview] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchRecentData(ticker);
+      const data = await fetchMonthData(ticker);
+      const [latestData] = data;
+
       setChartData(data);
+      setPrice(latestData.close);
     };
     fetchData();
   }, [ticker]);
+
+  console.log(price);
 
   return (
     <div className="App">
@@ -44,7 +50,7 @@ function App() {
       </header>
       <main>
         <Grid className={classes.container} container>
-          <LeftSide />
+          <LeftSide price={price} />
           <RightSide />
         </Grid>
         <Grid className={classes.container} container>

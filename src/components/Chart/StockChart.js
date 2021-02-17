@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Line, Chart as CustomChart } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { options } from "./chartOptions";
 
 import { makeStyles } from "@material-ui/core/styles";
