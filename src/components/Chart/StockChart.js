@@ -21,6 +21,12 @@ const Chart = ({ dailyData, ticker }) => {
   const [dates, setDates] = useState([]);
   const [stockData, setStockData] = useState({});
 
+  // Reset data
+  useEffect(() => {
+    setReversedDailyData([]);
+    setDates([]);
+  }, [dailyData]);
+
   // Reverse data
   useEffect(() => {
     setReversedDailyData([...dailyData].reverse());

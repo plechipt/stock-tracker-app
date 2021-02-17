@@ -6,6 +6,9 @@ export const options = {
     point: {
       radius: 0,
     },
+    line: {
+      tension: 0,
+    },
   },
   tooltips: {
     intersect: false,

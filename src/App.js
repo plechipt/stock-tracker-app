@@ -24,10 +24,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
-  const [companyOverview, setCompanyOverview] = useState(null);
-  const [dailyData, setDailyData] = useState(null);
-  const [ticker, setTicker] = useState("");
   const classes = useStyles();
+  const [ticker, setTicker] = useState("VOO"); // default VOO
+  const [dailyData, setDailyData] = useState(null);
+  const [companyOverview, setCompanyOverview] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
