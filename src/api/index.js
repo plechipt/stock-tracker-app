@@ -1,20 +1,28 @@
 import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-const INTRADAY_URL = `http://api.marketstack.com/v1/intraday?access_key=${API_KEY}`;
-const EOD_URL = `http://api.marketstack.com/v1/eod?access_key=${API_KEY}`;
+
+const BASE_URL = "http://api.marketstack.com/v1";
+const EOD_URL = `${BASE_URL}/eod?access_key=${API_KEY}`;
+const INTRADAY_URL = `${BASE_URL}/intraday?access_key=${API_KEY}`;
+const COMPANY_URL = `${BASE_URL}/tickers?access_key=${API_KEY}`;
+
+export const fetchCompany = async (ticker) => {
+  const API_URL = `${COMPANY_URL}&symbols=${ticker}`;
+  const {
+    data: { data },
+  } = await axios.request(API_URL);
+
+  return data;
+};
 
 export const fetchRecentData = async (ticker) => {
   const API_URL = `${INTRADAY_URL}&symbols=${ticker}&interval=15min&limit=100`;
+  const {
+    data: { data },
+  } = await axios.request(API_URL);
 
-  try {
-    let {
-      data: { data },
-    } = await axios.request(API_URL);
-    return data;
-  } catch {
-    console.log("test");
-  }
+  return data;
 };
 
 export const fetchMonthData = async (ticker) => {

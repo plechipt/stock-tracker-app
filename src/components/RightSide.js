@@ -21,8 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RightSide = () => {
+const RightSide = ({ companyInfo }) => {
   const classes = useStyles();
+  const {
+    symbol,
+    stock_exchange: { acronym },
+  } = companyInfo;
+
+  console.log(companyInfo);
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>
@@ -30,9 +36,9 @@ const RightSide = () => {
         className={`${classes.withoutBreak} ${classes.marginRight} ${classes.muted}`}
         variant="h5"
       >
-        NASDAQ:
+        {acronym}:
       </Typography>
-      <Typography variant="h5">NFLX</Typography>
+      <Typography variant="h5">{symbol}</Typography>
     </Grid>
   );
 };

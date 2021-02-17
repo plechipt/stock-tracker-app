@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  fetchCompany,
   fetchRecentData,
   fetchMonthData,
   fetchSixMonthData,
@@ -27,21 +28,25 @@ function App() {
   const classes = useStyles();
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
+  const [companyInfo, setCompanyInfo] = useState({
+    symbol: "VOO",
+    name: "VANGUARD 500 INDEX FUND ETF SHARES",
+    stock_exchange: { acronym: "NYSEARCA" },
+  });
   const [chartData, setChartData] = useState(null);
-  const [companyOverview, setCompanyOverview] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchMonthData(ticker);
+      const data = await fetchYearData(ticker);
       const [latestData] = data;
+      const [companyInfoResult] = await fetchCompany(ticker);
 
       setChartData(data);
       setPrice(latestData.close);
+      setCompanyInfo(companyInfoResult);
     };
     fetchData();
   }, [ticker]);
-
-  console.log(price);
 
   return (
     <div className="App">
@@ -50,8 +55,8 @@ function App() {
       </header>
       <main>
         <Grid className={classes.container} container>
-          <LeftSide price={price} />
-          <RightSide />
+          <LeftSide price={price} companyInfo={companyInfo} />
+          <RightSide companyInfo={companyInfo} />
         </Grid>
         <Grid className={classes.container} container>
           <FindInput setTicker={setTicker} />

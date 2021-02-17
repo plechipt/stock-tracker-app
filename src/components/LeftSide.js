@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
+  nameContainer: {
+    marginBottom: theme.spacing(1),
+  },
   withoutBreak: {
     display: "inline-block",
   },
@@ -20,14 +23,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LeftSide = ({ price }) => {
+const LeftSide = ({ price, companyInfo }) => {
   const classes = useStyles();
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>
       <div>
-        <Typography className={classes.muted} variant="h6">
-          Netflix
+        <Typography
+          className={`${classes.nameContainer} ${classes.muted}`}
+          variant="h6"
+        >
+          {companyInfo.name}
         </Typography>
         <div>
           <Typography
