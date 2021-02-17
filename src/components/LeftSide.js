@@ -1,4 +1,5 @@
 import React from "react";
+import CountUp from "react-countup";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -40,7 +41,7 @@ const LeftSide = ({ price, companyInfo }) => {
             className={`${classes.withoutBreak} ${classes.marginRight}`}
             variant="h3"
           >
-            {price}
+            <CountUp start={0} end={price} duration={1} decimals={2} />
           </Typography>
           <Typography
             className={`${classes.withoutBreak} ${classes.muted}`}
