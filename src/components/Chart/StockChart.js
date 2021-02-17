@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Chart = ({ dailyData, ticker }) => {
+const Chart = ({ dailyData }) => {
   const classes = useStyles();
   const [reversedDailyData, setReversedDailyData] = useState([]);
   const [dates, setDates] = useState([]);
