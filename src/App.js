@@ -4,7 +4,6 @@ import {
   fetchMonthData,
   fetchSixMonthData,
   fetchYearData,
-  fetchCompanyDescription,
   fetchCompanyInfo,
 } from "./api";
 import "./App.css";
@@ -42,7 +41,6 @@ function App() {
       const data = await fetchYearData(ticker);
       const [latestData] = data;
       const [companyInfoResult] = await fetchCompanyInfo(ticker);
-      await fetchCompanyDescription(ticker);
 
       setChartData(data);
       setPrice(latestData.close);

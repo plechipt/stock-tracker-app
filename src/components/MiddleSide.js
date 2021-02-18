@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { fetchCompanyDescription } from "../api";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";

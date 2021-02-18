@@ -4,17 +4,14 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY2 = process.env.REACT_APP_API_KEY2;
 
 const BASE_URL = "http://api.marketstack.com/v1";
-
 const EOD_URL = `${BASE_URL}/eod?access_key=${API_KEY}`;
 const INTRADAY_URL = `${BASE_URL}/intraday?access_key=${API_KEY}`;
 const COMPANY_URL = `${BASE_URL}/tickers?access_key=${API_KEY}`;
 
 //https://financialmodelingprep.com/
 export const fetchCompanyDescription = async (ticker) => {
-  const API_URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${API_KEY2}`;
+  const API_URL = `https://financialmodelingprep.com/api/v3/profile/${ticker}?apikey=${API_KEY2}`;
   const data = await axios.request(API_URL);
-
-  console.log(data);
 
   return data;
 };
