@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  fetchCompany,
   fetchRecentData,
   fetchMonthData,
   fetchSixMonthData,
   fetchYearData,
+  fetchCompanyDescription,
+  fetchCompanyInfo,
 } from "./api";
 import "./App.css";
 
@@ -13,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 
 import Navbar from "./components/Navbar";
 import LeftSide from "./components/LeftSide";
+import MiddleSide from "./components/MiddleSide";
 import RightSide from "./components/RightSide";
 import FindInput from "./components/FindInput";
 import StockChart from "./components/Chart/StockChart";
@@ -39,7 +41,8 @@ function App() {
     const fetchData = async () => {
       const data = await fetchYearData(ticker);
       const [latestData] = data;
-      const [companyInfoResult] = await fetchCompany(ticker);
+      const [companyInfoResult] = await fetchCompanyInfo(ticker);
+      await fetchCompanyDescription(ticker);
 
       setChartData(data);
       setPrice(latestData.close);
@@ -56,6 +59,7 @@ function App() {
       <main>
         <Grid className={classes.container} container>
           <LeftSide price={price} companyInfo={companyInfo} />
+          <MiddleSide />
           <RightSide companyInfo={companyInfo} />
         </Grid>
         <Grid className={classes.container} container>

@@ -28,8 +28,6 @@ const RightSide = ({ companyInfo }) => {
     stock_exchange: { acronym },
   } = companyInfo;
 
-  console.log(companyInfo);
-
   return (
     <Grid className={classes.root} item xs={12} md={4}>
       <Typography
