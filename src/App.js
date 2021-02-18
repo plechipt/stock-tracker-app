@@ -5,6 +5,7 @@ import {
   fetchSixMonthData,
   fetchYearData,
   fetchCompanyInfo,
+  fetchCompanyDescription,
 } from "./api";
 import "./App.css";
 
@@ -29,6 +30,10 @@ function App() {
   const classes = useStyles();
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
+  const [companyDescription, setCompanyDescription] = useState({
+    description: "",
+    website: "",
+  });
   const [companyInfo, setCompanyInfo] = useState({
     symbol: "VOO",
     name: "VANGUARD 500 INDEX FUND ETF SHARES",
@@ -38,13 +43,14 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchYearData(ticker);
-      const [latestData] = data;
-      const [companyInfoResult] = await fetchCompanyInfo(ticker);
-
-      setChartData(data);
-      setPrice(latestData.close);
-      setCompanyInfo(companyInfoResult);
+      //const data = await fetchYearData(ticker);
+      //const [latestData] = data;
+      //const [companyInfoResult] = await fetchCompanyInfo(ticker);
+      const [companyDescriptionResult] = await fetchCompanyDescription(ticker);
+      //setChartData(data);
+      //setPrice(latestData.close);
+      //setCompanyInfo(companyInfoResult);
+      setCompanyDescription(companyDescriptionResult);
     };
     fetchData();
   }, [ticker]);
@@ -57,7 +63,7 @@ function App() {
       <main>
         <Grid className={classes.container} container>
           <LeftSide price={price} companyInfo={companyInfo} />
-          <MiddleSide />
+          <MiddleSide companyDescription={companyDescription} />
           <RightSide companyInfo={companyInfo} />
         </Grid>
         <Grid className={classes.container} container>
