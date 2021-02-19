@@ -31,10 +31,7 @@ function App() {
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
   const [chartData, setChartData] = useState(null);
-  const [stockDescription, setStockDescription] = useState({
-    description: "",
-    website: "",
-  });
+  const [isNewStock, setIsNewStock] = useState(true);
   const [stockInfo, setStockInfo] = useState({
     symbol: "VOO",
     name: "VANGUARD 500 INDEX FUND ETF SHARES",
@@ -46,11 +43,11 @@ function App() {
       //const data = await fetchYearData(ticker);
       //const [latestData] = data;
       //const [stockInfoResult] = await fetchStockInfo(ticker);
-      //const [stockDescriptionResult] = await fetchStockDescription(ticker);
+
+      setIsNewStock(true);
       //setChartData(data);
       //setPrice(latestData.close);
       //setStockInfo(stockInfoResult);
-      //setStockDescription(stockDescriptionResult);
     };
     fetchData();
   }, [ticker]);
@@ -63,7 +60,11 @@ function App() {
       <main>
         <Grid className={classes.container} container>
           <LeftSide price={price} stockInfo={stockInfo} />
-          <MiddleSide stockDescription={stockDescription} />
+          <MiddleSide
+            ticker={ticker}
+            isNewStock={isNewStock}
+            setIsNewStock={setIsNewStock}
+          />
           <RightSide stockInfo={stockInfo} />
         </Grid>
         <Grid className={classes.container} container>

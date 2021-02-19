@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { LoremIpsum } from "lorem-ipsum";
 import { fetchStockDescription } from "../api";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     maxWidth: "50%",
-    minWidth: "50%",
     margin: "auto",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
+    minWidth: "50%",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -44,28 +43,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MiddleSide = ({ stockDescription: { description, website } }) => {
+const MiddleSide = ({ ticker, isNewStock, setIsNewStock }) => {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const lorem = new LoremIpsum({
-    sentencesPerParagraph: {
-      max: 8,
-      min: 4,
-    },
-    wordsPerSentence: {
-      max: 16,
-      min: 4,
-    },
-  });
+  const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
 
-  const loremIpsum = lorem.generateSentences(5);
+  const handleOnClick = async () => {
+    const [{ description, website }] = await fetchStockDescription(ticker);
+
+    setModalIsOpen(true);
+    setIsNewStock(false);
+    setDescription(description);
+    setWebsite(website);
+  };
 
   return (
     <div className={classes.root}>
       <b>
         <Button
           className={classes.submitButton}
-          onClick={() => setModalIsOpen(true)}
+          onClick={() => (isNewStock ? handleOnClick() : setModalIsOpen(true))}
           type="submit"
           variant="contained"
           color="primary"
@@ -93,7 +91,7 @@ const MiddleSide = ({ stockDescription: { description, website } }) => {
               {description !== "" ? (
                 <p id="transition-modal-description">{description}</p>
               ) : (
-                <p>{loremIpsum}</p>
+                <p>None</p>
               )}
             </div>
             <div className="modal-webstie">
