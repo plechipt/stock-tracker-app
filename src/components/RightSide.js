@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RightSide = ({ companyInfo }) => {
+const RightSide = ({ stockInfo }) => {
   const classes = useStyles();
   const {
     symbol,
     stock_exchange: { acronym },
-  } = companyInfo;
+  } = stockInfo;
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>

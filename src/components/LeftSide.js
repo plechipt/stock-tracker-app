@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LeftSide = ({ price, companyInfo }) => {
+const LeftSide = ({ price, stockInfo }) => {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ const LeftSide = ({ price, companyInfo }) => {
           className={`${classes.nameContainer} ${classes.muted}`}
           variant="h6"
         >
-          {companyInfo.name}
+          {stockInfo.name}
         </Typography>
         <div>
           <Typography

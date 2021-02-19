@@ -4,8 +4,8 @@ import {
   fetchMonthData,
   fetchSixMonthData,
   fetchYearData,
-  fetchCompanyInfo,
-  fetchCompanyDescription,
+  fetchStockInfo,
+  fetchStockDescription,
 } from "./api";
 import "./App.css";
 
@@ -30,27 +30,27 @@ function App() {
   const classes = useStyles();
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
-  const [companyDescription, setCompanyDescription] = useState({
+  const [chartData, setChartData] = useState(null);
+  const [stockDescription, setStockDescription] = useState({
     description: "",
     website: "",
   });
-  const [companyInfo, setCompanyInfo] = useState({
+  const [stockInfo, setStockInfo] = useState({
     symbol: "VOO",
     name: "VANGUARD 500 INDEX FUND ETF SHARES",
     stock_exchange: { acronym: "NYSEARCA" },
   });
-  const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       //const data = await fetchYearData(ticker);
       //const [latestData] = data;
-      //const [companyInfoResult] = await fetchCompanyInfo(ticker);
-      const [companyDescriptionResult] = await fetchCompanyDescription(ticker);
+      //const [stockInfoResult] = await fetchStockInfo(ticker);
+      //const [stockDescriptionResult] = await fetchStockDescription(ticker);
       //setChartData(data);
       //setPrice(latestData.close);
-      //setCompanyInfo(companyInfoResult);
-      setCompanyDescription(companyDescriptionResult);
+      //setStockInfo(stockInfoResult);
+      //setStockDescription(stockDescriptionResult);
     };
     fetchData();
   }, [ticker]);
@@ -62,9 +62,9 @@ function App() {
       </header>
       <main>
         <Grid className={classes.container} container>
-          <LeftSide price={price} companyInfo={companyInfo} />
-          <MiddleSide companyDescription={companyDescription} />
-          <RightSide companyInfo={companyInfo} />
+          <LeftSide price={price} stockInfo={stockInfo} />
+          <MiddleSide stockDescription={stockDescription} />
+          <RightSide stockInfo={stockInfo} />
         </Grid>
         <Grid className={classes.container} container>
           <FindInput setTicker={setTicker} />

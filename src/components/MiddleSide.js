@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoremIpsum } from "lorem-ipsum";
-import { fetchCompanyDescription } from "../api";
+import { fetchStockDescription } from "../api";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,10 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    alignItems: "center",
+  },
   submitButton: {
     fontWeight: "1000",
     background: "#1976D2",
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MiddleSide = ({ companyDescription: { description, website } }) => {
+const MiddleSide = ({ stockDescription: { description, website } }) => {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const lorem = new LoremIpsum({
@@ -53,8 +57,6 @@ const MiddleSide = ({ companyDescription: { description, website } }) => {
       min: 4,
     },
   });
-
-  console.log(description !== "");
 
   const loremIpsum = lorem.generateSentences(5);
 
@@ -69,7 +71,7 @@ const MiddleSide = ({ companyDescription: { description, website } }) => {
           color="primary"
           size="large"
         >
-          Company Info
+          Stock Info
         </Button>
       </b>
       <Modal
@@ -84,7 +86,7 @@ const MiddleSide = ({ companyDescription: { description, website } }) => {
       >
         <Fade in={modalIsOpen}>
           <div className={classes.paper}>
-            <Typography variant="h5">Company Info</Typography>
+            <Typography variant="h5">Stock Info</Typography>
             <hr />
             <div className={classes.descriptionContainer}>
               <Typography className={classes.title}>Description</Typography>
