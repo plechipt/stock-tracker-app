@@ -25,6 +25,15 @@ export const fetchStockInfo = async (ticker) => {
   return data;
 };
 
+export const fetchIntradayData = async (ticker) => {
+  const API_URL = `${INTRADAY_URL}&symbols=${ticker}&limit=1`;
+  const {
+    data: { data },
+  } = await axios.request(API_URL);
+
+  return data;
+};
+
 export const fetchRecentData = async (ticker) => {
   const API_URL = `${EOD_URL}&symbols=${ticker}&limit=7`;
   const {

@@ -6,7 +6,7 @@ import {
   fetchYearData,
   fetchStockInfo,
   fetchStockDescription,
-  fetchStockChange,
+  fetchIntradayData,
 } from "./api";
 import "./App.css";
 
@@ -27,6 +27,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const editNumber = (num) => {
+  const isInt = num % 1 === 0;
+
+  // Add two decimals if number is integer
+  if (isInt) {
+    return num.toFixed(2);
+  }
+
+  // Return number with 2 decimal places
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+};
+
 function App() {
   const classes = useStyles();
   const [price, setPrice] = useState(0);
@@ -42,12 +54,15 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchRecentData(ticker);
-      const [{ close }] = data;
+      const [{ close: eodClose }] = data;
+      const [{ close: intradayClose }] = await fetchIntradayData(ticker);
       const [stockInfoResult] = await fetchStockInfo(ticker);
 
+      const stockChange = eodClose - intradayClose;
+      const stockChangeResult = editNumber(stockChange);
+
       setIsNewStock(true);
-      //await fetchStockChange(ticker);
-      setPrice(close);
+      setPrice(eodClose);
       setChartData(data);
       setStockInfo(stockInfoResult);
     };
