@@ -36,7 +36,7 @@ const LeftSide = ({ price, stockInfo }) => {
         >
           {stockInfo.name}
         </Typography>
-        <div>
+        <div className="price-container">
           <Typography
             className={`${classes.withoutBreak} ${classes.marginRight}`}
             variant="h3"
@@ -48,6 +48,11 @@ const LeftSide = ({ price, stockInfo }) => {
             variant="h6"
           >
             USD
+          </Typography>
+        </div>
+        <div className="stock-change-container">
+          <Typography>
+            <b>-101,5</b>
           </Typography>
         </div>
       </div>

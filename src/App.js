@@ -6,6 +6,7 @@ import {
   fetchYearData,
   fetchStockInfo,
   fetchStockDescription,
+  fetchStockChange,
 } from "./api";
 import "./App.css";
 
@@ -40,14 +41,15 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      //const data = await fetchYearData(ticker);
-      //const [latestData] = data;
-      //const [stockInfoResult] = await fetchStockInfo(ticker);
+      const data = await fetchRecentData(ticker);
+      const [{ close }] = data;
+      const [stockInfoResult] = await fetchStockInfo(ticker);
 
       setIsNewStock(true);
-      //setChartData(data);
-      //setPrice(latestData.close);
-      //setStockInfo(stockInfoResult);
+      //await fetchStockChange(ticker);
+      setPrice(close);
+      setChartData(data);
+      setStockInfo(stockInfoResult);
     };
     fetchData();
   }, [ticker]);

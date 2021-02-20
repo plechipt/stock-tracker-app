@@ -26,7 +26,7 @@ export const fetchStockInfo = async (ticker) => {
 };
 
 export const fetchRecentData = async (ticker) => {
-  const API_URL = `${INTRADAY_URL}&symbols=${ticker}&interval=15min&limit=100`;
+  const API_URL = `${EOD_URL}&symbols=${ticker}&limit=7`;
   const {
     data: { data },
   } = await axios.request(API_URL);
