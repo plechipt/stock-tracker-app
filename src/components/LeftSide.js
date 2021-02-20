@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -24,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
   muted: {
     opacity: "50%",
   },
-  stockChangeText: {
-    //color: "#34A853",
+  greenColor: {
+    color: "#34A853",
+  },
+  redColor: {
     color: "#EA4335",
   },
 }));
@@ -57,13 +59,27 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
           </Typography>
         </div>
         <div className="stock-change-container">
-          <Typography className={classes.stockChangeText}>
-            <FontAwesomeIcon
-              className={classes.marginRight}
-              icon={faArrowDown}
-            ></FontAwesomeIcon>
-            <b>{stockChange}</b>
-          </Typography>
+          {stockChange ? (
+            <>
+              {stockChange.includes("-") ? (
+                <Typography className={classes.redColor}>
+                  <FontAwesomeIcon
+                    className={classes.marginRight}
+                    icon={faArrowDown}
+                  ></FontAwesomeIcon>
+                  <b>${stockChange.replace("-", "")}</b>
+                </Typography>
+              ) : (
+                <Typography className={classes.greenColor}>
+                  <FontAwesomeIcon
+                    className={classes.marginRight}
+                    icon={faArrowUp}
+                  ></FontAwesomeIcon>
+                  <b>${stockChange}</b>
+                </Typography>
+              )}
+            </>
+          ) : null}
         </div>
       </div>
     </Grid>
