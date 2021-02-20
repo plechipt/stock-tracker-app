@@ -32,11 +32,14 @@ const editNumber = (num) => {
 
   // Add two decimals if number is integer
   if (isInt) {
-    return num.toFixed(2);
+    num = num.toFixed(2);
+  }
+  // Return number with 2 decimal places
+  else {
+    num = String(Math.round((num + Number.EPSILON) * 100) / 100);
   }
 
-  // Return number with 2 decimal places
-  return Math.round((num + Number.EPSILON) * 100) / 100;
+  return num.replace(".", ",");
 };
 
 function App() {
@@ -44,6 +47,7 @@ function App() {
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
   const [chartData, setChartData] = useState(null);
+  const [stockChange, setStockChange] = useState("");
   const [isNewStock, setIsNewStock] = useState(true);
   const [stockInfo, setStockInfo] = useState({
     symbol: "VOO",
@@ -57,11 +61,11 @@ function App() {
       const [{ close: eodClose }] = data;
       const [{ close: intradayClose }] = await fetchIntradayData(ticker);
       const [stockInfoResult] = await fetchStockInfo(ticker);
-
       const stockChange = eodClose - intradayClose;
       const stockChangeResult = editNumber(stockChange);
 
       setIsNewStock(true);
+      setStockChange(stockChangeResult);
       setPrice(eodClose);
       setChartData(data);
       setStockInfo(stockInfoResult);
@@ -76,7 +80,11 @@ function App() {
       </header>
       <main>
         <Grid className={classes.container} container>
-          <LeftSide price={price} stockInfo={stockInfo} />
+          <LeftSide
+            price={price}
+            stockInfo={stockInfo}
+            stockChange={stockChange}
+          />
           <MiddleSide
             ticker={ticker}
             isNewStock={isNewStock}

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LeftSide = ({ price, stockInfo }) => {
+const LeftSide = ({ price, stockInfo, stockChange }) => {
   const classes = useStyles();
 
   return (
@@ -52,7 +52,7 @@ const LeftSide = ({ price, stockInfo }) => {
         </div>
         <div className="stock-change-container">
           <Typography>
-            <b>-101,5</b>
+            <b>{stockChange}</b>
           </Typography>
         </div>
       </div>
