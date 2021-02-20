@@ -1,5 +1,7 @@
 import React from "react";
 import CountUp from "react-countup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -17,10 +19,14 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
   },
   marginRight: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(0.5),
   },
   muted: {
     opacity: "50%",
+  },
+  stockChangeText: {
+    //color: "#34A853",
+    color: "#EA4335",
   },
 }));
 
@@ -51,7 +57,11 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
           </Typography>
         </div>
         <div className="stock-change-container">
-          <Typography>
+          <Typography className={classes.stockChangeText}>
+            <FontAwesomeIcon
+              className={classes.marginRight}
+              icon={faArrowDown}
+            ></FontAwesomeIcon>
             <b>{stockChange}</b>
           </Typography>
         </div>
