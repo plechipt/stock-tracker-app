@@ -89,7 +89,8 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
                     className={classes.marginRight}
                     icon={faArrowUp}
                   ></FontAwesomeIcon>
-                  <b>${changeInNumber}</b>
+                  <b className={classes.marginRight}>${changeInNumber}</b>
+                  <b>({changeInPercent}%)</b>
                 </Typography>
               )}
               <Typography className={classes.todayText}>Today</Typography>

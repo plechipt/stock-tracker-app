@@ -71,8 +71,6 @@ function App() {
     fetchData();
   }, [ticker]);
 
-  console.log(stockChange);
-
   return (
     <div className="App">
       <header>
