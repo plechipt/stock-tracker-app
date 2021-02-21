@@ -61,6 +61,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
         <div className="stock-change-container">
           {stockChange ? (
             <>
+              {/*If is negative*/}
               {stockChange.includes("-") ? (
                 <Typography className={classes.redColor}>
                   <FontAwesomeIcon

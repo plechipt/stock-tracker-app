@@ -58,15 +58,15 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchRecentData(ticker);
-      const [{ close: eodClose }] = data;
-      const [{ close: intradayClose }] = await fetchIntradayData(ticker);
+      const [{ close: closeToday }, { close: closeYesterday }] = data;
       const [stockInfoResult] = await fetchStockInfo(ticker);
-      const stockChange = eodClose - intradayClose;
+
+      const stockChange = closeToday - closeYesterday;
       const stockChangeResult = editNumber(stockChange);
 
       setIsNewStock(true);
       setStockChange(stockChangeResult);
-      setPrice(eodClose);
+      setPrice(closeToday);
       setChartData(data);
       setStockInfo(stockInfoResult);
     };
