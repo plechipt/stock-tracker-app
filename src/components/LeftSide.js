@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import ChangeCountUp from "./ChangeCountUp";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -42,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
 const LeftSide = ({ price, stockInfo, stockChange }) => {
   const classes = useStyles();
   const { changeInNumber, changeInPercent } = stockChange;
-
-  console.log(changeInNumber, changeInPercent);
+  const number = changeInNumber.replace("-", "");
+  const percent = changeInPercent.replace("-", "");
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>
@@ -59,7 +60,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
             className={`${classes.withoutBreak} ${classes.marginRightBigger}`}
             variant="h3"
           >
-            <CountUp start={0} end={price} duration={1} decimals={2} />
+            <CountUp start={0} end={price} duration={1.25} decimals={2} />
           </Typography>
           <Typography
             className={`${classes.withoutBreak} ${classes.muted}`}
@@ -78,10 +79,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
                     className={classes.marginRight}
                     icon={faArrowDown}
                   ></FontAwesomeIcon>
-                  <b className={classes.marginRight}>
-                    ${changeInNumber.replace("-", "")}
-                  </b>
-                  <b>({changeInPercent.replace("-", "")}%)</b>
+                  <ChangeCountUp number={number} percent={percent} />
                 </Typography>
               ) : (
                 <Typography className={classes.greenColor}>
@@ -89,8 +87,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
                     className={classes.marginRight}
                     icon={faArrowUp}
                   ></FontAwesomeIcon>
-                  <b className={classes.marginRight}>${changeInNumber}</b>
-                  <b>({changeInPercent}%)</b>
+                  <ChangeCountUp number={number} percent={percent} />
                 </Typography>
               )}
               <Typography className={classes.todayText}>Today</Typography>

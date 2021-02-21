@@ -7,7 +7,7 @@ import {
   fetchStockInfo,
   fetchStockDescription,
 } from "./api";
-import { editNumber, calculatePercent } from "./components/functions";
+import { roundNumber, calculatePercent } from "./components/functions";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,13 +45,12 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchRecentData(ticker);
+      const data = await fetchYearData(ticker);
       const [stockInfoResult] = await fetchStockInfo(ticker);
       const [{ close: closeToday }, { close: closeYesterday }] = data;
 
       // Calculate stock change in number
       const stockChangeInNumber = closeToday - closeYesterday;
-      const stockChangeInNumberResult = editNumber(stockChangeInNumber);
 
       // Calculate stock change in percent
       const stockChangeInPercent = calculatePercent(
@@ -64,13 +63,14 @@ function App() {
       setPrice(closeToday);
       setStockInfo(stockInfoResult);
       setStockChange({
-        changeInNumber: stockChangeInNumberResult,
-        changeInPercent: stockChangeInPercent,
+        changeInNumber: String(stockChangeInNumber),
+        changeInPercent: String(stockChangeInPercent),
       });
     };
     fetchData();
   }, [ticker]);
 
+  console.log(stockChange);
   return (
     <div className="App">
       <header>
