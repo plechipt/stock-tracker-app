@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import Navbar from "./components/Navbar";
-import LeftSide from "./components/LeftSide";
+import LeftSide from "./components/LeftSide/LeftSide";
 import MiddleSide from "./components/MiddleSide";
 import RightSide from "./components/RightSide";
 import FindInput from "./components/FindInput";

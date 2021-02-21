@@ -14,11 +14,11 @@ const ChangeCountUp = ({ number, percent }) => {
     <>
       <b className={classes.marginRight}>
         <span>$</span>
-        <CountUp start={0} end={number} duration={1.5} decimals={2} />
+        <CountUp start={0} end={Number(number)} duration={1.5} decimals={2} />
       </b>
       <b>
         (
-        <CountUp start={0} end={percent} duration={2} decimals={2} />
+        <CountUp start={0} end={Number(percent)} duration={2} decimals={2} />
         %)
       </b>
     </>
