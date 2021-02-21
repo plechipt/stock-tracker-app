@@ -6,8 +6,8 @@ import {
   fetchYearData,
   fetchStockInfo,
   fetchStockDescription,
-  fetchIntradayData,
 } from "./api";
+import { editNumber, calculatePercent } from "./components/functions";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,28 +27,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const editNumber = (num) => {
-  const isInt = num % 1 === 0;
-
-  // Add two decimals if number is integer
-  if (isInt) {
-    num = num.toFixed(2);
-  }
-  // Return number with 2 decimal places
-  else {
-    num = String(Math.round((num + Number.EPSILON) * 100) / 100);
-  }
-
-  return num.replace(".", ",");
-};
-
 function App() {
   const classes = useStyles();
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
   const [chartData, setChartData] = useState(null);
-  const [stockChange, setStockChange] = useState("");
   const [isNewStock, setIsNewStock] = useState(true);
+  const [stockChange, setStockChange] = useState({
+    changeInNumber: "",
+    changeInPercent: "",
+  });
   const [stockInfo, setStockInfo] = useState({
     symbol: "VOO",
     name: "VANGUARD 500 INDEX FUND ETF SHARES",
@@ -58,20 +46,32 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchRecentData(ticker);
-      const [{ close: closeToday }, { close: closeYesterday }] = data;
       const [stockInfoResult] = await fetchStockInfo(ticker);
+      const [{ close: closeToday }, { close: closeYesterday }] = data;
 
-      const stockChange = closeToday - closeYesterday;
-      const stockChangeResult = editNumber(stockChange);
+      // Calculate stock change in number
+      const stockChangeInNumber = closeToday - closeYesterday;
+      const stockChangeInNumberResult = editNumber(stockChangeInNumber);
 
-      setIsNewStock(true);
-      setStockChange(stockChangeResult);
-      setPrice(closeToday);
+      // Calculate stock change in percent
+      const stockChangeInPercent = calculatePercent(
+        stockChangeInNumber,
+        closeYesterday
+      );
+
       setChartData(data);
+      setIsNewStock(true);
+      setPrice(closeToday);
       setStockInfo(stockInfoResult);
+      setStockChange({
+        changeInNumber: stockChangeInNumberResult,
+        changeInPercent: stockChangeInPercent,
+      });
     };
     fetchData();
   }, [ticker]);
+
+  console.log(stockChange);
 
   return (
     <div className="App">

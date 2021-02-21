@@ -12,14 +12,21 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
-  nameContainer: {
-    marginBottom: theme.spacing(1),
+  stockChangeContainer: {
+    display: "flex",
+    marginTop: theme.spacing(0.5),
   },
   withoutBreak: {
     display: "inline-block",
   },
   marginRight: {
     marginRight: theme.spacing(0.5),
+  },
+  marginRightBigger: {
+    marginRight: theme.spacing(1),
+  },
+  todayText: {
+    marginLeft: theme.spacing(1),
   },
   muted: {
     opacity: "50%",
@@ -34,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 const LeftSide = ({ price, stockInfo, stockChange }) => {
   const classes = useStyles();
+  const { changeInNumber, changeInPercent } = stockChange;
+
+  console.log(changeInNumber, changeInPercent);
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>
@@ -46,7 +56,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
         </Typography>
         <div className="price-container">
           <Typography
-            className={`${classes.withoutBreak} ${classes.marginRight}`}
+            className={`${classes.withoutBreak} ${classes.marginRightBigger}`}
             variant="h3"
           >
             <CountUp start={0} end={price} duration={1} decimals={2} />
@@ -58,17 +68,20 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
             USD
           </Typography>
         </div>
-        <div className="stock-change-container">
-          {stockChange ? (
+        <div className={classes.stockChangeContainer}>
+          {changeInNumber !== "" && changeInPercent !== "" ? (
             <>
               {/*If is negative*/}
-              {stockChange.includes("-") ? (
+              {changeInNumber.includes("-") ? (
                 <Typography className={classes.redColor}>
                   <FontAwesomeIcon
                     className={classes.marginRight}
                     icon={faArrowDown}
                   ></FontAwesomeIcon>
-                  <b>${stockChange.replace("-", "")}</b>
+                  <b className={classes.marginRight}>
+                    ${changeInNumber.replace("-", "")}
+                  </b>
+                  <b>({changeInPercent.replace("-", "")}%)</b>
                 </Typography>
               ) : (
                 <Typography className={classes.greenColor}>
@@ -76,9 +89,10 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
                     className={classes.marginRight}
                     icon={faArrowUp}
                   ></FontAwesomeIcon>
-                  <b>${stockChange}</b>
+                  <b>${changeInNumber}</b>
                 </Typography>
               )}
+              <Typography className={classes.todayText}>Today</Typography>
             </>
           ) : null}
         </div>
