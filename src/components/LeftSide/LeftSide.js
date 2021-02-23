@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
-
   withoutBreak: {
     display: "inline-block",
   },
@@ -32,10 +31,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
   return (
     <Grid className={classes.root} item xs={12} md={4}>
       <div>
-        <Typography
-          className={`${classes.nameContainer} ${classes.muted}`}
-          variant="h6"
-        >
+        <Typography className={`${classes.muted}`} variant="h6">
           {stockInfo.name}
         </Typography>
         <div className="price-container">

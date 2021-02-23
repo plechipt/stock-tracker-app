@@ -12,17 +12,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: theme.spacing(0.5),
   },
-  marginRight: {
-    marginRight: theme.spacing(0.5),
-  },
   marginRightBigger: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(0.75),
   },
   todayText: {
     marginLeft: theme.spacing(1),
-  },
-  muted: {
-    opacity: "50%",
   },
   greenColor: {
     color: "#34A853",
@@ -46,7 +40,7 @@ const CustomChangeInStock = ({ stockChange }) => {
           {changeInNumber.includes("-") ? (
             <Typography className={classes.redColor}>
               <FontAwesomeIcon
-                className={classes.marginRight}
+                className={classes.marginRightBigger}
                 icon={faArrowDown}
               ></FontAwesomeIcon>
               <ChangeCountUp number={number} percent={percent} />
@@ -54,7 +48,7 @@ const CustomChangeInStock = ({ stockChange }) => {
           ) : (
             <Typography className={classes.greenColor}>
               <FontAwesomeIcon
-                className={classes.marginRight}
+                className={classes.marginRightBigger}
                 icon={faArrowUp}
               ></FontAwesomeIcon>
               <ChangeCountUp number={number} percent={percent} />

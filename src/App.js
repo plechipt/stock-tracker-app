@@ -45,7 +45,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchYearData(ticker);
+      const data = await fetchMonthData(ticker);
       const [stockInfoResult] = await fetchStockInfo(ticker);
       const [{ close: closeToday }, { close: closeYesterday }] = data;
 
