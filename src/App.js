@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  fetchRecentData,
-  fetchMonthData,
-  fetchSixMonthData,
-  fetchYearData,
-  fetchStockInfo,
-  fetchStockDescription,
-} from "./api";
-import { calculatePercent } from "./components/functions";
+import { fetchStockInfo, fetchStockDescription } from "./api";
+import { calculatePercent, fetchData } from "./components/functions";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -34,6 +27,7 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
+  const [currentTab, setCurrentTab] = useState(0);
   const [price, setPrice] = useState(0);
   const [ticker, setTicker] = useState("VOO"); // default VOO
   const [chartData, setChartData] = useState(null);
@@ -49,9 +43,9 @@ function App() {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchMonthData(ticker);
-      //const [stockInfoResult] = await fetchStockInfo(ticker);
+    const handleData = async () => {
+      const data = await fetchData(ticker, currentTab);
+      const [stockInfoResult] = await fetchStockInfo(ticker);
       const [{ close: closeToday }, { close: closeYesterday }] = data;
 
       // Calculate stock change in number
@@ -66,16 +60,15 @@ function App() {
       setChartData(data);
       setIsNewStock(true);
       setPrice(closeToday);
-      //setStockInfo(stockInfoResult);
+      setStockInfo(stockInfoResult);
       setStockChange({
         changeInNumber: String(stockChangeInNumber),
         changeInPercent: String(stockChangeInPercent),
       });
     };
-    fetchData();
-  }, [ticker]);
+    handleData();
+  }, [ticker, currentTab]);
 
-  console.log(stockChange);
   return (
     <div className="App">
       <header>
@@ -100,9 +93,9 @@ function App() {
         </Grid>
         <div className={classes.chartTableContainer}>
           <Grid container>
-            <Filter />
+            <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
           </Grid>
-          <Grid className={classes.container} container>
+          <Grid container>
             {chartData ? (
               <StockChart ticker={ticker} chartData={chartData} />
             ) : null}

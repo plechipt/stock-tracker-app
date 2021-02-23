@@ -1,33 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { DataGrid } from "@material-ui/data-grid";
 import Grid from "@material-ui/core/Grid";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
-const Filter = () => {
+const useStyles = makeStyles(() => ({
+  root: {
+    marginTop: "2.5rem",
+  },
+}));
+
+const Filter = ({ currentTab, setCurrentTab }) => {
+  const classes = useStyles();
+
   return (
-    <Grid item xs={10}>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-      </TableContainer>
-    </Grid>
+    <Paper className={classes.root} square>
+      <Tabs
+        value={currentTab}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={(event, newValue) => setCurrentTab(newValue)}
+      >
+        <Tab label="Recent" />
+        <Tab label="1 month" />
+        <Tab label="6 month" />
+        <Tab label="1 year" />
+      </Tabs>
+    </Paper>
   );
 };
 

@@ -7,10 +7,7 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    margin: "auto",
-    marginTop: "5rem",
+    marginTop: "1.5rem",
     width: "60rem",
   },
 }));
@@ -65,7 +62,7 @@ const Chart = ({ chartData }) => {
   }, [reversedData, dates]);
 
   return (
-    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={12}>
+    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={11}>
       <Line data={stockData} options={options} />
     </Grid>
   );
