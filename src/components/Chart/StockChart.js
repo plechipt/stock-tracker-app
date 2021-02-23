@@ -65,15 +65,9 @@ const Chart = ({ chartData }) => {
   }, [reversedData, dates]);
 
   return (
-    <div>
-      <Grid
-        className={`${classes.root} ${classes.chartContainer}`}
-        item
-        xs={12}
-      >
-        <Line data={stockData} options={options} />
-      </Grid>
-    </div>
+    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={12}>
+      <Line data={stockData} options={options} />
+    </Grid>
   );
 };
 

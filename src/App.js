@@ -7,7 +7,7 @@ import {
   fetchStockInfo,
   fetchStockDescription,
 } from "./api";
-import { roundNumber, calculatePercent } from "./components/functions";
+import { calculatePercent } from "./components/functions";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,12 +18,17 @@ import LeftSide from "./components/LeftSide/LeftSide";
 import MiddleSide from "./components/MiddleSide";
 import RightSide from "./components/RightSide";
 import FindInput from "./components/FindInput";
+import Filter from "./components/Filter";
 import StockChart from "./components/Chart/StockChart";
 
 const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     justifyContent: "center",
+  },
+  chartTableContainer: {
+    maxWidth: "50%",
+    margin: "auto",
   },
 }));
 
@@ -46,7 +51,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchMonthData(ticker);
-      const [stockInfoResult] = await fetchStockInfo(ticker);
+      //const [stockInfoResult] = await fetchStockInfo(ticker);
       const [{ close: closeToday }, { close: closeYesterday }] = data;
 
       // Calculate stock change in number
@@ -61,7 +66,7 @@ function App() {
       setChartData(data);
       setIsNewStock(true);
       setPrice(closeToday);
-      setStockInfo(stockInfoResult);
+      //setStockInfo(stockInfoResult);
       setStockChange({
         changeInNumber: String(stockChangeInNumber),
         changeInPercent: String(stockChangeInPercent),
@@ -93,11 +98,16 @@ function App() {
         <Grid className={classes.container} container>
           <FindInput setTicker={setTicker} />
         </Grid>
-        <Grid className={classes.container} container>
-          {chartData ? (
-            <StockChart ticker={ticker} chartData={chartData} />
-          ) : null}
-        </Grid>
+        <div className={classes.chartTableContainer}>
+          <Grid container>
+            <Filter />
+          </Grid>
+          <Grid className={classes.container} container>
+            {chartData ? (
+              <StockChart ticker={ticker} chartData={chartData} />
+            ) : null}
+          </Grid>
+        </div>
       </main>
     </div>
   );
