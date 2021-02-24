@@ -49,6 +49,7 @@ export const fetchSixMonthData = async (ticker) => {
     data: { data },
   } = await axios.request(API_URL);
 
+  console.log("test 1 ");
   return data;
 };
 
