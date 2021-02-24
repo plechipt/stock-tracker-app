@@ -1,30 +1,34 @@
-import {
-  fetchRecentData,
-  fetchMonthData,
-  fetchSixMonthData,
-  fetchYearData,
-} from "../api";
+import { fetchTimeData } from "../api";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = "http://api.marketstack.com/v1";
+const EOD_URL = `${BASE_URL}/eod?access_key=${API_KEY}`;
 
 export const fetchData = async (ticker, currentTab) => {
   let data;
+  let API_URL;
+  const TICKER_URL = `${EOD_URL}&symbols=${ticker}`;
 
   switch (currentTab) {
-    // MonthData
+    // Month data
     case 1:
-      data = await fetchMonthData(ticker);
+      API_URL = `${TICKER_URL}&limit=30`;
       break;
-    // MonthData
+    // Six months data
     case 2:
-      data = await fetchSixMonthData(ticker);
+      API_URL = `${TICKER_URL}&limit=180`;
       break;
+    // Year data
     case 3:
-      data = await fetchYearData(ticker);
+      API_URL = `${TICKER_URL}&limit=365`;
       break;
-    // Recent
+    // Recent data
     default: {
-      data = await fetchRecentData(ticker);
+      API_URL = `${TICKER_URL}&limit=7`;
     }
   }
+
+  data = await fetchTimeData(API_URL);
 
   return data;
 };

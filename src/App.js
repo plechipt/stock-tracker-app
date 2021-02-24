@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchStockInfo, fetchStockDescription } from "./api";
+import { fetchStockInfo } from "./api";
 import { calculatePercent, fetchData } from "./components/functions";
 import "./App.css";
 
