@@ -54,7 +54,6 @@ function App() {
   useEffect(() => {
     const handleData = async () => {
       const data = await fetchData(ticker, currentTab);
-
       const [{ close: closeToday }, { close: closeYesterday }] = data;
 
       // Calculate stock change in number
