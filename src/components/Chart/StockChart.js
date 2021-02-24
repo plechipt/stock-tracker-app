@@ -5,9 +5,9 @@ import { options } from "./chartOptions";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: "1.5rem",
+    marginTop: theme.spacing(3),
     width: "60rem",
   },
 }));

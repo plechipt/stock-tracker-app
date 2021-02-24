@@ -9,9 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 //import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: 100,
+    marginBottom: theme.spacing(12.5),
   },
   appBar: {
     background: "#1976D2",

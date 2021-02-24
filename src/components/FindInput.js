@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "2rem",
+    marginTop: theme.spacing(4),
   },
 }));
 
