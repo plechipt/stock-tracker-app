@@ -5,6 +5,7 @@ import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 import Navbar from "./components/Navbar";
 import LeftSide from "./components/LeftSide/LeftSide";
@@ -14,14 +15,18 @@ import FindInput from "./components/FindInput";
 import Filter from "./components/Filter";
 import StockChart from "./components/Chart/StockChart";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "center",
   },
   chartTableContainer: {
-    maxWidth: "50%",
     margin: "auto",
+    maxWidth: "50%",
+  },
+  invalidText: {
+    margin: "auto",
+    marginTop: theme.spacing(4),
   },
 }));
 
@@ -54,9 +59,14 @@ function App() {
   useEffect(() => {
     const handleData = async () => {
       const data = await fetchData(ticker, currentTab);
-      const [{ close: closeToday }, { close: closeYesterday }] = data;
+
+      if (data === null) {
+        setChartData(null);
+        return null;
+      }
 
       // Calculate stock change in number
+      const [{ close: closeToday }, { close: closeYesterday }] = data;
       const stockChangeInNumber = closeToday - closeYesterday;
 
       // Calculate stock change in percent
@@ -81,19 +91,21 @@ function App() {
         <Navbar />
       </header>
       <main>
-        <Grid className={classes.container} container>
-          <LeftSide
-            price={price}
-            stockInfo={stockInfo}
-            stockChange={stockChange}
-          />
-          <MiddleSide
-            ticker={ticker}
-            isNewStock={isNewStock}
-            setIsNewStock={setIsNewStock}
-          />
-          <RightSide stockInfo={stockInfo} />
-        </Grid>
+        {stockInfo ? (
+          <Grid className={classes.container} container>
+            <LeftSide
+              price={price}
+              stockInfo={stockInfo}
+              stockChange={stockChange}
+            />
+            <MiddleSide
+              ticker={ticker}
+              isNewStock={isNewStock}
+              setIsNewStock={setIsNewStock}
+            />
+            <RightSide stockInfo={stockInfo} />
+          </Grid>
+        ) : null}
         <Grid className={classes.container} container>
           <FindInput setTicker={setTicker} />
         </Grid>
@@ -104,7 +116,11 @@ function App() {
           <Grid container>
             {chartData ? (
               <StockChart ticker={ticker} chartData={chartData} />
-            ) : null}
+            ) : (
+              <Typography className={classes.invalidText} variant="h3">
+                Invalid ticker
+              </Typography>
+            )}
           </Grid>
         </div>
       </main>

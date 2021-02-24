@@ -28,7 +28,11 @@ export const fetchData = async (ticker, currentTab) => {
     }
   }
 
-  data = await fetchTimeData(API_URL);
+  try {
+    data = await fetchTimeData(API_URL);
+  } catch {
+    data = null;
+  }
 
   return data;
 };
