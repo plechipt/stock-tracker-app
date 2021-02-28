@@ -50,7 +50,8 @@ const MiddleSide = ({ ticker, isNewStock, setIsNewStock }) => {
   const [website, setWebsite] = useState("");
 
   const handleOnClick = async () => {
-    const [{ description, website }] = await fetchStockDescription(ticker);
+    let [{ description, website }] = await fetchStockDescription(ticker);
+    website = website.replace("com/", "com");
 
     setModalIsOpen(true);
     setIsNewStock(false);
@@ -59,7 +60,7 @@ const MiddleSide = ({ ticker, isNewStock, setIsNewStock }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} button-info-container`}>
       <b>
         <Button
           className={classes.submitButton}

@@ -11,7 +11,7 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(12.5),
+    marginBottom: theme.spacing(10),
   },
   appBar: {
     background: "#1976D2",

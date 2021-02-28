@@ -30,7 +30,7 @@ const LeftSide = ({ price, stockInfo, stockChange }) => {
 
   return (
     <Grid className={classes.root} item xs={12} md={4}>
-      <div>
+      <div className="left-side-container">
         <Typography className={`${classes.muted}`} variant="h6">
           {stockInfo.name}
         </Typography>

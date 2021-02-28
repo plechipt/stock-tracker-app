@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   stockChangeContainer: {
     display: "flex",
+    justifyContent: "center",
     marginTop: theme.spacing(0.5),
   },
   marginRightBigger: {

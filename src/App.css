@@ -3,6 +3,19 @@ body {
   padding: 0;
 }
 
+@media (max-width: 959px) {
+  .left-side-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  .button-info-container {
+    margin-bottom: 1rem;
+  }
+}
+
 @media only screen and (max-width: 770px) {
   .stockContainer {
     width: 100%;

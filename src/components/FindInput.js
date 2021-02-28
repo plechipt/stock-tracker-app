@@ -25,7 +25,7 @@ const FindInput = ({ setTicker }) => {
   };
 
   return (
-    <Grid className={classes.root} item xs={4} md={2}>
+    <Grid className={classes.root} item xs={6} sm={4} md={3} lg={2}>
       <TextField
         value={tickerInput}
         onChange={(e) => setTickerInput(e.target.value)}
