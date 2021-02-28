@@ -12,7 +12,7 @@ import LeftSide from "./components/LeftSide/LeftSide";
 import MiddleSide from "./components/MiddleSide";
 import RightSide from "./components/RightSide";
 import FindInput from "./components/FindInput";
-import Filter from "./components/Filter";
+import Filter from "./components/Tabs/Filter";
 import StockChart from "./components/Chart/StockChart";
 
 const useStyles = makeStyles((theme) => ({
@@ -110,7 +110,7 @@ function App() {
           <FindInput setTicker={setTicker} />
         </Grid>
         <div className={classes.chartTableContainer}>
-          <Grid container>
+          <Grid className={classes.container} container>
             <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
           </Grid>
           <Grid container>

@@ -82,7 +82,7 @@ const Chart = ({ chartData }) => {
   }, [reversedData, dates, colorOfChart]);
 
   return (
-    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={11}>
+    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={12}>
       <Line data={stockData} options={options} />
     </Grid>
   );
