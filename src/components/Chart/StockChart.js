@@ -12,11 +12,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const GREEN_COLOR = "#34A853";
+const RED_COLOR = "#EA4335";
+
 const Chart = ({ chartData }) => {
   const classes = useStyles();
-  const [reversedData, setReversedData] = useState([]);
   const [dates, setDates] = useState([]);
   const [stockData, setStockData] = useState({});
+  const [reversedData, setReversedData] = useState([]);
+  const [colorOfChart, setColorOfChart] = useState(GREEN_COLOR); // Green default
 
   // Reset data
   useEffect(() => {
@@ -27,6 +31,22 @@ const Chart = ({ chartData }) => {
   // Reverse data
   useEffect(() => {
     setReversedData([...chartData].reverse());
+  }, [chartData]);
+
+  // Set color of chart
+  useEffect(() => {
+    if (chartData) {
+      const firstIndex = 0;
+      const lastIndex = chartData.length - 1;
+      const closeFirst = chartData[firstIndex].close;
+      const closeLast = chartData[lastIndex].close;
+
+      if (closeFirst > closeLast) {
+        setColorOfChart(GREEN_COLOR);
+      } else {
+        setColorOfChart(RED_COLOR);
+      }
+    }
   }, [chartData]);
 
   // Format date
@@ -52,14 +72,14 @@ const Chart = ({ chartData }) => {
           {
             label: "price",
             data: reversedData.map(({ close }) => close),
-            borderColor: "#34A853",
+            borderColor: colorOfChart,
             fill: false,
             borderWidth: 2,
           },
         ],
       });
     }
-  }, [reversedData, dates]);
+  }, [reversedData, dates, colorOfChart]);
 
   return (
     <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={11}>

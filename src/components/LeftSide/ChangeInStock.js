@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme) => ({
   marginRightBigger: {
     marginRight: theme.spacing(0.75),
   },
-  todayText: {
-    marginLeft: theme.spacing(1),
-  },
+
   greenColor: {
     color: "#34A853",
   },
@@ -54,7 +52,6 @@ const CustomChangeInStock = ({ stockChange }) => {
               <ChangeCountUp number={number} percent={percent} />
             </Typography>
           )}
-          <Typography className={classes.todayText}>Today</Typography>
         </>
       ) : null}
     </div>
