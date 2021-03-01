@@ -8,7 +8,9 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(3),
-    width: "60rem",
+    display: "flex",
+    justifyContent: "center",
+    width: "65%",
   },
 }));
 
@@ -82,9 +84,9 @@ const Chart = ({ chartData }) => {
   }, [reversedData, dates, colorOfChart]);
 
   return (
-    <Grid className={`${classes.root} ${classes.chartContainer}`} item xs={12}>
+    <div className={`${classes.root} chart-container`}>
       <Line data={stockData} options={options} />
-    </Grid>
+    </div>
   );
 };
 

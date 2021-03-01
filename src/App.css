@@ -16,8 +16,11 @@ body {
   }
 }
 
-@media only screen and (max-width: 770px) {
-  .stockContainer {
+@media (max-width: 770px) {
+  .chart-container {
+    width: 100% !important;
+  }
+  .find-stock-container {
     width: 100%;
   }
 }
