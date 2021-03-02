@@ -3,7 +3,6 @@ import { Line } from "react-chartjs-2";
 import { options } from "./chartOptions";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
