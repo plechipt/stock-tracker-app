@@ -3,6 +3,13 @@ body {
   padding: 0;
 }
 
+@media (max-width: 1300px) {
+  .chart-container,
+  .filter-container {
+    width: 65% !important;
+  }
+}
+
 @media (max-width: 959px) {
   .left-side-container {
     display: flex;
@@ -14,13 +21,18 @@ body {
   .button-info-container {
     margin-bottom: 1rem;
   }
+  .chart-container,
+  .filter-container {
+    width: 75% !important;
+  }
 }
 
 @media (max-width: 770px) {
-  .chart-container {
+  .chart-container,
+  .find-stock-container {
     width: 100% !important;
   }
-  .find-stock-container {
-    width: 100%;
+  .filter-container {
+    width: 90% !important;
   }
 }

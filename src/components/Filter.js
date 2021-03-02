@@ -11,10 +11,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "150%",
   },
   root: {
-    marginTop: theme.spacing(5),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: theme.spacing(5),
+    width: "45%",
   },
   firstTab: {
     width: "100%",
@@ -25,23 +26,21 @@ const Filter = ({ currentTab, setCurrentTab }) => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.mainContainer} item xs={12} xl={9}>
-      <Paper className={classes.root} square>
-        <Tabs
-          value={currentTab}
-          scrollButtons="on"
-          variant="scrollable"
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={(event, newValue) => setCurrentTab(newValue)}
-        >
-          <Tab label="Recent" />
-          <Tab label="1 month" />
-          <Tab label="6 month" />
-          <Tab label="1 year" />
-        </Tabs>
-      </Paper>
-    </Grid>
+    <Paper className={`${classes.root} filter-container`} square>
+      <Tabs
+        value={currentTab}
+        scrollButtons="on"
+        variant="scrollable"
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={(event, newValue) => setCurrentTab(newValue)}
+      >
+        <Tab label="Recent" />
+        <Tab label="1 month" />
+        <Tab label="6 month" />
+        <Tab label="1 year" />
+      </Tabs>
+    </Paper>
   );
 };
 

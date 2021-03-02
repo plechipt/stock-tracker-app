@@ -7,10 +7,9 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(3),
-    display: "flex",
-    justifyContent: "center",
-    width: "65%",
+    marginTop: theme.spacing(4),
+    margin: "auto",
+    width: "45%",
   },
 }));
 
