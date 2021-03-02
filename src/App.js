@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { fetchStockInfo } from "./api";
 import {
   calculatePercent,
@@ -14,12 +14,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import Navbar from "./components/Navbar";
-import LeftSide from "./components/LeftSide/LeftSide";
-import MiddleSide from "./components/MiddleSide";
-import RightSide from "./components/RightSide";
-import FindInput from "./components/FindInput";
-import Filter from "./components/Filter";
-import StockChart from "./components/Chart/StockChart";
+const LeftSide = lazy(() => import("./components/LeftSide/LeftSide"));
+const MiddleSide = lazy(() => import("./components/MiddleSide"));
+const RightSide = lazy(() => import("./components/RightSide"));
+const FindInput = lazy(() => import("./components/FindInput"));
+const Filter = lazy(() => import("./components/Filter"));
+const StockChart = lazy(() => import("./components/Chart/StockChart"));
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -116,38 +116,40 @@ function App() {
           <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         </header>
         <main>
-          {stockInfo ? (
-            <Grid className={classes.container} container>
-              <LeftSide
-                price={price}
-                stockInfo={stockInfo}
-                stockChange={stockChange}
-              />
-              <MiddleSide
-                ticker={ticker}
-                isNewStock={isNewStock}
-                setIsNewStock={setIsNewStock}
-              />
-              <RightSide stockInfo={stockInfo} />
-            </Grid>
-          ) : null}
-          <Grid container>
-            <FindInput setTicker={setTicker} />
-          </Grid>
-          <>
-            <Grid className={classes.container} container>
-              <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
+          <Suspense fallback={<div>Loading...</div>}>
+            {stockInfo ? (
+              <Grid className={classes.container} container>
+                <LeftSide
+                  price={price}
+                  stockInfo={stockInfo}
+                  stockChange={stockChange}
+                />
+                <MiddleSide
+                  ticker={ticker}
+                  isNewStock={isNewStock}
+                  setIsNewStock={setIsNewStock}
+                />
+                <RightSide stockInfo={stockInfo} />
+              </Grid>
+            ) : null}
+            <Grid container>
+              <FindInput setTicker={setTicker} />
             </Grid>
             <>
-              {chartData ? (
-                <StockChart ticker={ticker} chartData={chartData} />
-              ) : (
-                <Typography className={classes.invalidText} variant="h3">
-                  Invalid ticker
-                </Typography>
-              )}
+              <Grid className={classes.container} container>
+                <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
+              </Grid>
+              <>
+                {chartData ? (
+                  <StockChart ticker={ticker} chartData={chartData} />
+                ) : (
+                  <Typography className={classes.invalidText} variant="h3">
+                    Invalid ticker
+                  </Typography>
+                )}
+              </>
             </>
-          </>
+          </Suspense>
         </main>
       </ThemeProvider>
     </div>
