@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "50%",
   },
   invalidText: {
-    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
     marginTop: theme.spacing(4),
   },
 }));
