@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 
 import IconButton from "@material-ui/core/IconButton";
-//import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const classes = useStyles();
 
   return (
@@ -31,8 +31,12 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.logo}>
             Stock Tracker
           </Typography>
-          <IconButton aria-label="dark mode toggle" color="inherit">
-            <Brightness7Icon />
+          <IconButton
+            onClick={() => setDarkMode((prevMode) => !prevMode)}
+            aria-label="dark mode toggle"
+            color="inherit"
+          >
+            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>

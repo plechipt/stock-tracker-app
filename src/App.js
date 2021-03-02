@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { fetchStockInfo } from "./api";
-import { calculatePercent, fetchData } from "./components/functions";
+import {
+  calculatePercent,
+  fetchData,
+  getThemeMode,
+} from "./components/functions";
 import "./App.css";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import Navbar from "./components/Navbar";
 import LeftSide from "./components/LeftSide/LeftSide";
@@ -47,6 +53,23 @@ function App() {
     stock_exchange: { acronym: "NYSEARCA" },
   });
 
+  const [darkMode, setDarkMode] = useState(getThemeMode());
+
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: darkMode ? "dark" : "light",
+        },
+      }),
+    [darkMode]
+  );
+
+  // Set theme mode on change to local storage
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+
   useEffect(() => {
     const handleData = async () => {
       const [stockInfoResult] = await fetchStockInfo(ticker);
@@ -87,43 +110,46 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        {stockInfo ? (
-          <Grid className={classes.container} container>
-            <LeftSide
-              price={price}
-              stockInfo={stockInfo}
-              stockChange={stockChange}
-            />
-            <MiddleSide
-              ticker={ticker}
-              isNewStock={isNewStock}
-              setIsNewStock={setIsNewStock}
-            />
-            <RightSide stockInfo={stockInfo} />
-          </Grid>
-        ) : null}
-        <Grid container>
-          <FindInput setTicker={setTicker} />
-        </Grid>
-        <>
-          <Grid className={classes.container} container>
-            <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <header>
+          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        </header>
+        <main>
+          {stockInfo ? (
+            <Grid className={classes.container} container>
+              <LeftSide
+                price={price}
+                stockInfo={stockInfo}
+                stockChange={stockChange}
+              />
+              <MiddleSide
+                ticker={ticker}
+                isNewStock={isNewStock}
+                setIsNewStock={setIsNewStock}
+              />
+              <RightSide stockInfo={stockInfo} />
+            </Grid>
+          ) : null}
+          <Grid container>
+            <FindInput setTicker={setTicker} />
           </Grid>
           <>
-            {chartData ? (
-              <StockChart ticker={ticker} chartData={chartData} />
-            ) : (
-              <Typography className={classes.invalidText} variant="h3">
-                Invalid ticker
-              </Typography>
-            )}
+            <Grid className={classes.container} container>
+              <Filter currentTab={currentTab} setCurrentTab={setCurrentTab} />
+            </Grid>
+            <>
+              {chartData ? (
+                <StockChart ticker={ticker} chartData={chartData} />
+              ) : (
+                <Typography className={classes.invalidText} variant="h3">
+                  Invalid ticker
+                </Typography>
+              )}
+            </>
           </>
-        </>
-      </main>
+        </main>
+      </ThemeProvider>
     </div>
   );
 }
